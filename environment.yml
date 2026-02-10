@@ -1,0 +1,7 @@
+name: today_notify
+channels:
+  - conda-forge
+dependencies:
+  - python=3.11
+  - pip
+  - pytest
