@@ -7,13 +7,13 @@ This program is a simple program that will notify you of events that are happeni
 ```bash
 mamba --version # verify that mamba is available in PATH
 mamba env create -f environment.yml # create the environment
-mamba run -n today_notify mycommand # run any command in the environment
+mamba run -n daily_events_notify mycommand # run any command in the environment
 ```
 
 ## To run tests (from root folder)
 
 ```bash
-mamba run -n today_notify pytest tests/
+mamba run -n daily_events_notify pytest tests/
 ```
 
 ## Development 
@@ -28,10 +28,10 @@ Early development.
 
 ### To-Do
 ```
-[1] - add more tests for file manager
-[2] - create events.json if the file does not exist
-[3] -
-[4] -
+[completed] - fix file manager class
+[2] - fix notify manager class
+[3] - fix event manager class
+[4] - check if events.json created if not exist
 [5] -
 [6] -
 [7] -
