@@ -9,34 +9,34 @@ from core.schemas import BaseEvents
 
 class TestFileManager:
   def test_read_json(self):
-    file_path = Path("tests/test_data/events.json")
-    events = JsonFileManager(file_path).get_all_data()
+    file_config = {"events_file_path": "tests/test_data/events.json"}
+    events = JsonFileManager(file_config).get_all_data()
     assert isinstance(events, list)
     assert len(events) > 0
     assert isinstance(events[0], BaseEvents)
 
   def test_read_blank_json(self):
-    file_path = Path("tests/test_data/blank.json")
-    events = JsonFileManager(file_path).get_all_data()
+    file_config = {"events_file_path": "tests/test_data/blank.json"}
+    events = JsonFileManager(file_config).get_all_data()
     assert isinstance(events, list)
     assert len(events) == 0
     with pytest.raises(IndexError):
       events[0]
 
   def test_read_json_not_exist(self):
-    file_path = Path("this_file_does_not_exist.json")
+    file_config = {"events_file_path": "this_file_does_not_exist.json"}
     with pytest.raises(FileNotFoundError):
-      JsonFileManager(file_path).get_all_data()
+      JsonFileManager(file_config).get_all_data()
 
   def test_read_empty_json(self):
-    file_path = Path("tests/test_data/empty.json")
+    file_config = {"events_file_path": "tests/test_data/empty.json"}
     with pytest.raises(ValueError):
-      JsonFileManager(file_path).get_all_data()
+      JsonFileManager(file_config).get_all_data()
 
   def test_read_invalid_json(self):
-    file_path = Path("tests/test_data/invalid.json")
+    file_config = {"events_file_path": "tests/test_data/invalid.json"}
     with pytest.raises(ValueError):
-      JsonFileManager(file_path).get_all_data()
+      JsonFileManager(file_config).get_all_data()
 
   def test_write_json(self, tmp_path):
     src = Path("tests/test_data/events.json")
@@ -55,8 +55,9 @@ class TestFileManager:
     assert events_after[-1].dailytime == new_event.dailytime
 
   def test_write_json_not_exist(self):
+    file_config = {"events_file_path": "this_file_does_not_exist.json"}
     with pytest.raises(FileNotFoundError):
-      JsonFileManager(Path("this_file_does_not_exist.json")).add_new_data(
+      JsonFileManager(file_config).add_new_data(
         BaseEvents(message="Test", schedule="daily", dailytime="12:00")
       )
 

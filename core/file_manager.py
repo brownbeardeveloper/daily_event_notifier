@@ -5,8 +5,8 @@ from .schemas import BaseEvents
 
 
 class JsonFileManager:
-    def __init__(self, file_path: Path):
-        self._file_path: Path = file_path
+    def __init__(self, config: dict):
+        self._file_path: Path = Path(config["events_file_path"])
         self._data: list[BaseEvents] = self._load_json()
 
     def _load_json(self) -> list[BaseEvents]:

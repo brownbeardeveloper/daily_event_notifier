@@ -1,8 +1,9 @@
-.env
 __pycache__/
 .pytest_cache/
 *.pyc
 *.pyo
-.venv/
-venv/
 *.log
+data/*
+secrets/*
+.env
+private_events.json

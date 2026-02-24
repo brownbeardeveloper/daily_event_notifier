@@ -6,3 +6,5 @@ dependencies:
   - pip
   - pytest
   - pydantic
+  - requests
+  - python-dotenv
