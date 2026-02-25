@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 from core.config import load_config
 from core.file_manager import JsonFileManager
+from core.event_manager import EventManager
 from core.notify_manager import NotifyManager
 
 load_dotenv()
@@ -13,8 +14,9 @@ def main():
     config = load_config()
     api_key = os.getenv("DISCORD_WEBHOOK_URL")
     file_manager = JsonFileManager(config["file_config"])
+    event_manager = EventManager(file_manager)
     notify_manager = NotifyManager(api_key, config["notify_config"])
-    events = file_manager.get_all_data()
+    events = event_manager.get_todays_events()
     notify_manager.send_notification(events)
   except Exception as e:
     logging.error(e)

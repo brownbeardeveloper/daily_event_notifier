@@ -4,6 +4,4 @@ __pycache__/
 *.pyo
 *.log
 data/*
-secrets/*
 .env
-private_events.json

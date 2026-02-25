@@ -21,14 +21,19 @@ class NotifyManager:
 
     for event in events:
       if event.schedule == ScheduleType.DAILY:
-        message += f"Daily event: {event.message} at {event.dailytime}\n"
+        time_str = f" at {event.dailytime}" if event.dailytime else ""
+        message += f"Daily event: {event.message}{time_str}\n"
       elif event.schedule == ScheduleType.WEEKLY:
-        message += f"Weekly event: {event.message} on day {event.weekly}\n"
+        time_str = f" at {event.dailytime}" if event.dailytime else ""
+        message += f"Weekly event: {event.message} on day {event.wgit statuseekly}{time_str}\n"
       elif event.schedule == ScheduleType.MONTHLY:
-        message += f"Monthly event: {event.message} on day {event.monthly}\n"
+        time_str = f" at {event.dailytime}" if event.dailytime else ""
+        message += f"Monthly event: {event.message} on day {event.monthly}{time_str}\n"
       elif event.schedule == ScheduleType.ONCE:
-        message += f"Once event: {event.message} at {event.once}\n"
+        time_str = f" at {event.dailytime}" if event.dailytime else ""
+        message += f"Once event: {event.message} on {event.once.date()}{time_str}\n"
 
+    embed["description"] = message if message else "No events for today."
     return embed
 
   def _send_message(self, embed: dict) -> int:

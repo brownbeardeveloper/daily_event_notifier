@@ -1,8 +1,8 @@
 notify_config:
   title: "Daily Events"
   description: "Here are your daily events:"
-  color: "#000000"
-  error_color: "#FF0000"
+  color: 16738484
+  error_color: 16711680
 
 file_config:
   events_file_path: "data/events.json"

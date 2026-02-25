@@ -1,4 +1,4 @@
-# Daily Events Notify
+# Daily Events Notify version 1.0
 
 This program is a simple program that will notify you of events that are happening today. It will use slack webhook to send the notifications. The program is designed to run on a server and be executed periodically using a cron job or systemd timer.
 
@@ -28,15 +28,12 @@ Early development.
 
 ### To-Do
 ```
-[completed] - fix file manager class
-[completed] - fix notify manager class
-[completed] - fix event manager class
-[completed] -  create events.json if not exist
+[0] - get more stars on this repo
+[1] - create postgresql database for storing events
+[2] - create a web interface for managing events
+[3] - ?
+[4] -
 [5] -
-[6] -
-[7] -
-[8] -
-[9] -
 ```
 
 ## Structure
