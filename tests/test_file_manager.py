@@ -11,6 +11,7 @@ class TestFileManager:
   def test_read_json(self):
     file_config = {"events_file_path": "tests/test_data/events.json"}
     events = JsonFileManager(file_config).get_all_data()
+    
     assert isinstance(events, list)
     assert len(events) > 0
     assert isinstance(events[0], BaseEvents)
@@ -18,15 +19,20 @@ class TestFileManager:
   def test_read_blank_json(self):
     file_config = {"events_file_path": "tests/test_data/blank.json"}
     events = JsonFileManager(file_config).get_all_data()
+
     assert isinstance(events, list)
     assert len(events) == 0
     with pytest.raises(IndexError):
       events[0]
 
-  def test_read_json_not_exist(self):
-    file_config = {"events_file_path": "this_file_does_not_exist.json"}
-    with pytest.raises(FileNotFoundError):
-      JsonFileManager(file_config).get_all_data()
+  def test_read_json_not_exist(self, tmp_path):
+    dst = tmp_path / "new_events.json"
+    file_config = {"events_file_path": str(dst)}
+    events = JsonFileManager(file_config).get_all_data()
+
+    assert isinstance(events, list)
+    assert len(events) == 0
+    assert dst.exists()
 
   def test_read_empty_json(self):
     file_config = {"events_file_path": "tests/test_data/empty.json"}
@@ -43,7 +49,7 @@ class TestFileManager:
     dst = tmp_path / "events.json"
     shutil.copy(src, dst) # copy test data to temp directory
 
-    fileManager = JsonFileManager(dst)
+    fileManager = JsonFileManager({"events_file_path": str(dst)})
     events_before = fileManager.get_all_data()
     new_event = BaseEvents(message="Test", schedule="daily", dailytime="12:00")
     fileManager.add_new_data(new_event)
@@ -54,12 +60,14 @@ class TestFileManager:
     assert events_after[-1].schedule == new_event.schedule
     assert events_after[-1].dailytime == new_event.dailytime
 
-  def test_write_json_not_exist(self):
-    file_config = {"events_file_path": "this_file_does_not_exist.json"}
-    with pytest.raises(FileNotFoundError):
-      JsonFileManager(file_config).add_new_data(
-        BaseEvents(message="Test", schedule="daily", dailytime="12:00")
-      )
+  def test_write_json_not_exist(self, tmp_path):
+    dst = tmp_path / "new_events.json"
+    file_config = {"events_file_path": str(dst)}
+    fm = JsonFileManager(file_config)
+    fm.add_new_data(BaseEvents(message="Test", schedule="daily", dailytime="12:00"))
+    events = fm.get_all_data()
+    assert len(events) == 1
+    assert events[0].message == "Test"
 
   def test_update_json(self, tmp_path):
     id_1, idx = 1, 0
@@ -67,7 +75,7 @@ class TestFileManager:
     dst = tmp_path / "events.json"
     shutil.copy(src, dst) # copy test data to temp directory
 
-    fileManager = JsonFileManager(dst)
+    fileManager = JsonFileManager({"events_file_path": str(dst)})
     events_before = fileManager.get_all_data()
     fileManager.update_data(
       key=id_1,
@@ -91,7 +99,7 @@ class TestFileManager:
     dst = tmp_path / "events.json"
     shutil.copy(src, dst) # copy test data to temp directory
 
-    fileManager = JsonFileManager(dst)
+    fileManager = JsonFileManager({"events_file_path": str(dst)})
     events_before = fileManager.get_all_data()
     fileManager.delete_data(id_1)
     events_after = fileManager.get_all_data()

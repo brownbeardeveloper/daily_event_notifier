@@ -5,13 +5,16 @@ from .schemas import BaseEvents
 
 
 class JsonFileManager:
-    def __init__(self, config: dict):
-        self._file_path: Path = Path(config["events_file_path"])
+    def __init__(self, file_config: dict):
+        self._file_path: Path = Path(file_config["events_file_path"])
         self._data: list[BaseEvents] = self._load_json()
 
     def _load_json(self) -> list[BaseEvents]:
         if not self._file_path.exists():
-            raise FileNotFoundError("File not found")
+            self._file_path.parent.mkdir(parents=True, exist_ok=True)
+            with open(self._file_path, "w") as f:
+                json.dump([], f)
+            return []
         
         with open(self._file_path, "r") as f:
             return [BaseEvents(**item) for item in json.load(f)]

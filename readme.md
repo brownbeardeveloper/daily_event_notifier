@@ -29,9 +29,9 @@ Early development.
 ### To-Do
 ```
 [completed] - fix file manager class
-[2] - fix notify manager class
-[3] - fix event manager class
-[4] - check if events.json created if not exist
+[completed] - fix notify manager class
+[completed] - fix event manager class
+[completed] -  create events.json if not exist
 [5] -
 [6] -
 [7] -
@@ -45,18 +45,17 @@ Early development.
 
 -   Core:
 
+    -   config.py
+    -   schemas.py
     -   file_manager.py
-    -   event_manager.py # coming soon
-    -   slack_manager.py # coming soon
-    -   main.py # coming soon
+    -   event_manager.py
+    -   notify_manager.py
+    -   main.py
 
 -   Tests:
     -   test_file_manager.py
-    -   test_event_manager.py # coming soon
-    -   test_slack_manager.py # coming soon
-
--   Secrets:
-    -   slack_webhook_url.txt
+    -   test_event_manager.py
+    -   test_notify_manager.py
 
 -   Data:
     -   events.json # this should be created by the program if not exist
@@ -85,4 +84,19 @@ File_Manager:
 ```
 -   read_json(file_path)
 -   write_json(file_path, data)
+```
+
+Event_Manager:
+```
+-   get_events()
+-   get_event_by_id(event_id)
+-   add_event(event)
+-   update_event(event_id, event)
+-   delete_event(event_id)
+```
+
+Notify_Manager:
+```
+-   send_notification(events)
+-   send_error(error)
 ```
