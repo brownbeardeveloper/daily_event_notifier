@@ -25,7 +25,7 @@ class NotifyManager:
         message += f"Daily event: {event.message}{time_str}\n"
       elif event.schedule == ScheduleType.WEEKLY:
         time_str = f" at {event.dailytime}" if event.dailytime else ""
-        message += f"Weekly event: {event.message} on day {event.wgit statuseekly}{time_str}\n"
+        message += f"Weekly event: {event.message} on day {event.weekly}{time_str}\n"
       elif event.schedule == ScheduleType.MONTHLY:
         time_str = f" at {event.dailytime}" if event.dailytime else ""
         message += f"Monthly event: {event.message} on day {event.monthly}{time_str}\n"
