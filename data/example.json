@@ -4,33 +4,33 @@
         "message": "Test for once notification",
         "schedule": "once",
         "date": "2026-02-25",
-        "dailytime": "08:00"
+        "time": "08:00"
     },
     {
         "id": 2,
         "message": "Test for daily notification",
         "schedule": "daily",
-        "dailytime": "08:00"
+        "time": "08:00"
     },
     {
         "id": 3,
         "message": "Test for weekly notification",
         "schedule": "weekly",
         "day_of_week": 0,
-        "dailytime": "08:00"
+        "time": "08:00"
     },
     {
         "id": 4,
         "message": "Test for monthly notification",
         "schedule": "monthly",
         "dd": 1,
-        "dailytime": "08:00"
+        "time": "08:00"
     },
     {
         "id": 5,
         "message": "Test for yearly notification",
         "schedule": "yearly",
         "mm_dd": "02-25",
-        "dailytime": "08:00"
+        "time": "08:00"
     }
 ]

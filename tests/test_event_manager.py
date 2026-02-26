@@ -15,8 +15,8 @@ def _create_file_manager(tmp_path, events: list[dict]) -> JsonFileManager:
 
 class TestEventManager:
   SAMPLE_EVENTS = [
-    {"id": 0, "message": "Stand-up", "schedule": "daily", "dailytime": "09:00:00"},
-    {"id": 1, "message": "Lunch", "schedule": "daily", "dailytime": "12:00:00"},
+    {"id": 0, "message": "Stand-up", "schedule": "daily", "time": "09:00:00"},
+    {"id": 1, "message": "Lunch", "schedule": "daily", "time": "12:00:00"},
   ]
 
   def _create_event_manager(self, tmp_path, events: list[dict] | None = None) -> EventManager:
@@ -50,7 +50,7 @@ class TestEventManager:
 
   def test_add_event(self, tmp_path):
     em = self._create_event_manager(tmp_path, [])
-    event = BaseEvents(message="Meeting", schedule=ScheduleType.DAILY, dailytime=time(14, 0))
+    event = BaseEvents(message="Meeting", schedule=ScheduleType.DAILY, time=time(14, 0))
     em.add_event(event)
 
     events = em.get_events()
@@ -60,12 +60,12 @@ class TestEventManager:
 
   def test_update_event(self, tmp_path):
     em = self._create_event_manager(tmp_path, [self.SAMPLE_EVENTS[0]])
-    updated = BaseEvents(message="Standup v2", schedule=ScheduleType.DAILY, dailytime=time(10, 0))
+    updated = BaseEvents(message="Standup v2", schedule=ScheduleType.DAILY, time=time(10, 0))
     em.update_event(0, updated)
 
     result = em.get_event_by_id(0)
     assert result.message == "Standup v2"
-    assert result.dailytime == time(10, 0)
+    assert result.time == time(10, 0)
 
   def test_delete_event(self, tmp_path):
     em = self._create_event_manager(tmp_path)

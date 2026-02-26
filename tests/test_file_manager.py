@@ -51,20 +51,20 @@ class TestFileManager:
 
     fileManager = JsonFileManager({"events_file_path": str(dst)})
     events_before = fileManager.get_all_data()
-    new_event = BaseEvents(message="Test", schedule="daily", dailytime="12:00")
+    new_event = BaseEvents(message="Test", schedule="daily", time="12:00")
     fileManager.add_new_data(new_event)
     events_after = fileManager.get_all_data()
 
     assert len(events_after) == len(events_before) + 1
     assert events_after[-1].message == new_event.message 
     assert events_after[-1].schedule == new_event.schedule
-    assert events_after[-1].dailytime == new_event.dailytime
+    assert events_after[-1].time == new_event.time
 
   def test_write_json_not_exist(self, tmp_path):
     dst = tmp_path / "new_events.json"
     file_config = {"events_file_path": str(dst)}
     fm = JsonFileManager(file_config)
-    fm.add_new_data(BaseEvents(message="Test", schedule="daily", dailytime="12:00"))
+    fm.add_new_data(BaseEvents(message="Test", schedule="daily", time="12:00"))
     events = fm.get_all_data()
     assert len(events) == 1
     assert events[0].message == "Test"
@@ -88,7 +88,7 @@ class TestFileManager:
     assert updated_event.id == id_1
     assert events_before[idx].message == "Test event"
     assert events_before[idx].schedule.value == "daily"
-    assert events_before[idx].dailytime == datetime.time(12, 0) 
+    assert events_before[idx].time == datetime.time(12, 0) 
     assert updated_event.message == "Updated"
     assert updated_event.schedule.value == "once"
     assert updated_event.date == datetime.datetime(2026, 2, 15, 12, 0)

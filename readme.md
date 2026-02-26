@@ -1,4 +1,4 @@
-# Daily Events Notify version 1.0
+# Daily Events Notify version 1.1 (not completed)
 
 This program is a simple program that will notify you of events that are happening today. It will use discord webhook to send the notifications. The program is designed to run on a server and be executed periodically using a cron job or systemd timer.
 
@@ -73,7 +73,7 @@ Base event fields:
 Schedule fields:
 ```
 -   date: "datetime": YYYY-MM-DDTHH:MM      (schedule: once)
--   dailytime: "time": HH:MM                (schedule: daily)
+-   time: "time": HH:MM                     (schedule: daily)
 -   day_of_week: "weekday": 0-6             (schedule: weekly)
 -   dd: "day": 1-31                         (schedule: monthly)
 -   mm_dd: "date": MM-DD                    (schedule: yearly)

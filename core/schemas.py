@@ -1,6 +1,6 @@
 from pydantic import BaseModel, Field, model_validator
 from typing import Optional
-from datetime import datetime, time
+from datetime import datetime, time as Time
 import enum
 
 
@@ -16,7 +16,7 @@ class BaseEvents(BaseModel):
     message: str
     schedule: ScheduleType
     date: Optional[datetime] = None
-    dailytime: Optional[time] = None
+    time: Optional[Time] = None
     day_of_week: Optional[int] = Field(None, ge=0, le=6)
     dd: Optional[int] = Field(None, ge=1, le=31)
     mm_dd: Optional[str] = Field(None, pattern=r"^\d{2}-\d{2}$")
@@ -26,7 +26,7 @@ class BaseEvents(BaseModel):
         "Validate that the required field is not None"
         required = {
             ScheduleType.ONCE: "date",
-            ScheduleType.DAILY: "dailytime",
+            ScheduleType.DAILY: "time",
             ScheduleType.WEEKLY: "day_of_week",
             ScheduleType.MONTHLY: "dd",
             ScheduleType.YEARLY: "mm_dd",

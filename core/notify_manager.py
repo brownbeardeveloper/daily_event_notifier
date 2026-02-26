@@ -23,16 +23,16 @@ class NotifyManager:
 
     for event in events:
       if event.schedule == ScheduleType.DAILY:
-        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
         message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.WEEKLY:
-        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
         message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.MONTHLY:
-        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
         message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.ONCE:
-        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
         message += f"{event.message}{time_str}\n"
 
     embed["description"] = message if message else "No events for today."
