@@ -1,6 +1,6 @@
 import pytest, dotenv, os
 
-from core.notify_manager import NotifyManager
+from core.notification_manager import NotificationManager
 from core.schemas import BaseEvents
 
 dotenv.load_dotenv()
@@ -26,7 +26,7 @@ class TestNotifyManager:
 
     def test_send_real_notification(self, notify_config, events):
         api_key = os.getenv("TEST_WEBHOOK_URL")
-        notify_manager = NotifyManager(api_key, notify_config)
+        notify_manager = NotificationManager(api_key, notify_config)
 
         assert api_key is not None
         status = notify_manager.send_notification(events)
@@ -34,7 +34,7 @@ class TestNotifyManager:
 
     def test_send_real_error(self, notify_config):
         api_key = os.getenv("TEST_WEBHOOK_URL")
-        notify_manager = NotifyManager(api_key, notify_config)
+        notify_manager = NotificationManager(api_key, notify_config)
 
         assert api_key is not None
         status = notify_manager.send_error("Test error")
@@ -42,19 +42,19 @@ class TestNotifyManager:
 
     def test_invalid_api_key(self, notify_config, events):
         api_key = "https://discord.com/api/webhooks/invalid/fake_token"
-        notify_manager = NotifyManager(api_key, notify_config)
+        notify_manager = NotificationManager(api_key, notify_config)
         status = notify_manager.send_notification(events)
         assert status == 400, f"Expected 400 error, got {status}"
 
     def test_nonexistent_api_key(self, notify_config, events):
         api_key = None
-        notify_manager = NotifyManager(api_key, notify_config)
+        notify_manager = NotificationManager(api_key, notify_config)
         status = notify_manager.send_notification(events)
         assert status == 0, f"Expected 0 for unreachable URL, got {status}"
 
     def test_invalid_events(self, notify_config):
         api_key = os.getenv("TEST_WEBHOOK_URL")
-        notify_manager = NotifyManager(api_key, notify_config)
+        notify_manager = NotificationManager(api_key, notify_config)
         
         assert api_key is not None
         status = notify_manager.send_notification("Invalid events")

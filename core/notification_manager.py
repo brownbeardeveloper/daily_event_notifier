@@ -4,7 +4,7 @@ from requests.exceptions import RequestException
 from core.schemas import BaseEvents, ScheduleType
 
 
-class NotifyManager:
+class NotificationManager:
   def __init__(self, api_key: str, notify_config: dict):
     self.api_key = api_key
     self.title = notify_config['title']

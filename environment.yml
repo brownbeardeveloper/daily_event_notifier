@@ -1,4 +1,4 @@
-name: daily_events_notify
+name: daily_event_notifier
 channels:
   - conda-forge
 dependencies:

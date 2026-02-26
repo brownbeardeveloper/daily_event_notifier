@@ -18,18 +18,13 @@ TEST_WEBHOOK_URL
 **then run the following commands**
 
 ```bash
-cd daily_events_notify # go to the project root folder
+cd daily_event_notifier # go to the project root folder
 mamba --version # verify that mamba is available in PATH
 mamba env create -f environment.yml # create the environment
-mamba run -n daily_events_notify mycommand # run any command in the environment
+mamba run -n daily_event_notifier pytest tests/ # run tests
+mamba run -n daily_event_notifier python main.py # run the program
 ```
 
-## To run tests
-
-```bash
-cd daily_events_notify # go to the project root folder
-mamba run -n daily_events_notify pytest tests/ # run tests
-```
 
 ## To-Do
 ```
@@ -45,18 +40,17 @@ mamba run -n daily_events_notify pytest tests/ # run tests
 ### Folders
 
 -   Core:
-
     -   config.py
     -   schemas.py
     -   file_manager.py
     -   event_manager.py
-    -   notify_manager.py
+    -   notification_manager.py
     -   main.py
 
 -   Tests:
     -   test_file_manager.py
     -   test_event_manager.py
-    -   test_notify_manager.py
+    -   test_notification_manager.py
 
 -   Data:
     -   events.json # this should be created by the program if not exist
@@ -100,7 +94,7 @@ EventManager:
 -   delete_event(event_id)
 ```
 
-NotifyManager:
+NotificationManager:
 ```
 -   send_notification(events)
 -   send_error(error)
