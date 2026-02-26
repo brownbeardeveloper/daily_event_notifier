@@ -1,6 +1,8 @@
+from datetime import datetime
 import requests
 from requests.exceptions import RequestException
 from core.schemas import BaseEvents, ScheduleType
+
 
 class NotifyManager:
   def __init__(self, api_key: str, notify_config: dict):
@@ -13,7 +15,7 @@ class NotifyManager:
   def _get_embed_notification(self, events: list[BaseEvents]):
     message = ""
     embed = {
-      "title": self.title,
+      "title": f"{self.title} - {datetime.now().strftime('%A')}",
       "description": self.description,
       "fields": [],
       "color": self.embed_color
@@ -21,17 +23,17 @@ class NotifyManager:
 
     for event in events:
       if event.schedule == ScheduleType.DAILY:
-        time_str = f" at {event.dailytime}" if event.dailytime else ""
-        message += f"Daily event: {event.message}{time_str}\n"
+        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.WEEKLY:
-        time_str = f" at {event.dailytime}" if event.dailytime else ""
-        message += f"Weekly event: {event.message} on day {event.weekly}{time_str}\n"
+        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.MONTHLY:
-        time_str = f" at {event.dailytime}" if event.dailytime else ""
-        message += f"Monthly event: {event.message} on day {event.monthly}{time_str}\n"
+        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        message += f"{event.message}{time_str}\n"
       elif event.schedule == ScheduleType.ONCE:
-        time_str = f" at {event.dailytime}" if event.dailytime else ""
-        message += f"Once event: {event.message} on {event.once.date()}{time_str}\n"
+        time_str = f" at {event.dailytime.strftime('%H:%M')}" if event.dailytime else ""
+        message += f"{event.message}{time_str}\n"
 
     embed["description"] = message if message else "No events for today."
     return embed
