@@ -34,6 +34,9 @@ class NotifyManager:
       elif event.schedule == ScheduleType.ONCE:
         time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
         message += f"{event.message}{time_str}\n"
+      elif event.schedule == ScheduleType.YEARLY:
+        time_str = f" at {event.time.strftime('%H:%M')}" if event.time else ""
+        message += f"{event.message}{time_str}\n"
 
     embed["description"] = message if message else "No events for today."
     return embed

@@ -1,4 +1,4 @@
-# Daily Events Notify version 1.1 (not completed)
+# Daily Events Notify version 1.0
 
 This program is a simple program that will notify you of events that are happening today. It will use discord webhook to send the notifications. The program is designed to run on a server and be executed periodically using a cron job or systemd timer.
 
