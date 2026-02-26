@@ -20,8 +20,8 @@ class TestNotifyManager:
     def events(self):
         return [
             BaseEvents(message="Standup", schedule="daily", dailytime="09:00"),
-            BaseEvents(message="Weekly review", schedule="weekly", weekly=1),
-            BaseEvents(message="Monthly report", schedule="monthly", monthly=15),
+            BaseEvents(message="Weekly review", schedule="weekly", day_of_week=1),
+            BaseEvents(message="Monthly report", schedule="monthly", dd=15),
         ]
 
     def test_send_real_notification(self, notify_config, events):

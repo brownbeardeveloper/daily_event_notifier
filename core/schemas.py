@@ -15,21 +15,21 @@ class BaseEvents(BaseModel):
     id: Optional[int] = None
     message: str
     schedule: ScheduleType
-    once: Optional[datetime] = None
+    date: Optional[datetime] = None
     dailytime: Optional[time] = None
-    weekly: Optional[int] = Field(None, ge=0, le=6)
-    monthly: Optional[int] = Field(None, ge=1, le=31)
-    yearly: Optional[str] = Field(None, pattern=r"^\d{2}-\d{2}$")
+    day_of_week: Optional[int] = Field(None, ge=0, le=6)
+    dd: Optional[int] = Field(None, ge=1, le=31)
+    mm_dd: Optional[str] = Field(None, pattern=r"^\d{2}-\d{2}$")
 
     @model_validator(mode="after")
     def validate_schedule_fields(self):
         "Validate that the required field is not None"
         required = {
-            ScheduleType.ONCE: "once",
+            ScheduleType.ONCE: "date",
             ScheduleType.DAILY: "dailytime",
-            ScheduleType.WEEKLY: "weekly",
-            ScheduleType.MONTHLY: "monthly",
-            ScheduleType.YEARLY: "yearly",
+            ScheduleType.WEEKLY: "day_of_week",
+            ScheduleType.MONTHLY: "dd",
+            ScheduleType.YEARLY: "mm_dd",
         }
         field = required[self.schedule]
         if getattr(self, field) is None:

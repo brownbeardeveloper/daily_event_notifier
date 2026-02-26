@@ -17,13 +17,13 @@ class EventManager:
     for event in self.get_events():
       if event.schedule == ScheduleType.DAILY:
         result.append(event)
-      elif event.schedule == ScheduleType.WEEKLY and event.weekly == today.weekday():
+      elif event.schedule == ScheduleType.WEEKLY and event.day_of_week == today.weekday():
         result.append(event)
-      elif event.schedule == ScheduleType.MONTHLY and event.monthly == today.day:
+      elif event.schedule == ScheduleType.MONTHLY and event.dd == today.day:
         result.append(event)
-      elif event.schedule == ScheduleType.YEARLY and event.yearly == today.strftime("%m-%d"):
+      elif event.schedule == ScheduleType.YEARLY and event.mm_dd == today.strftime("%m-%d"):
         result.append(event)
-      elif event.schedule == ScheduleType.ONCE and event.once and event.once.date() == today:
+      elif event.schedule == ScheduleType.ONCE and event.date and event.date.date() == today:
         result.append(event)
     return result
 

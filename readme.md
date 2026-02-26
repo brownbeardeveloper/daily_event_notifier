@@ -1,39 +1,43 @@
 # Daily Events Notify version 1.0
 
-This program is a simple program that will notify you of events that are happening today. It will use slack webhook to send the notifications. The program is designed to run on a server and be executed periodically using a cron job or systemd timer.
+This program is a simple program that will notify you of events that are happening today. It will use discord webhook to send the notifications. The program is designed to run on a server and be executed periodically using a cron job or systemd timer.
+
+## Current status
+
+This is minimal viable product. It is able to send notifications to discord based on the events in the json file. You have to manually edit the json file to add or remove events.
+
+In future, if there's many people using this program, we will create a web interface for managing events.
 
 ## Setup
 
+**add .env file in the root folder with the following variables**
+```
+DISCORD_WEBHOOK_URL
+TEST_WEBHOOK_URL
+```
+**then run the following commands**
+
 ```bash
+cd daily_events_notify # go to the project root folder
 mamba --version # verify that mamba is available in PATH
 mamba env create -f environment.yml # create the environment
 mamba run -n daily_events_notify mycommand # run any command in the environment
 ```
 
-## To run tests (from root folder)
+## To run tests
 
 ```bash
-mamba run -n daily_events_notify pytest tests/
+cd daily_events_notify # go to the project root folder
+mamba run -n daily_events_notify pytest tests/ # run tests
 ```
 
-## Development 
-
-This project is developed using test driven development.
-
-
-## Current status
-
-Early development.
-
-
-### To-Do
+## To-Do
 ```
 [0] - get more stars on this repo
 [1] - create postgresql database for storing events
 [2] - create a web interface for managing events
-[3] - ?
-[4] -
-[5] -
+[3] - add custom exception classes
+[4] - have fun!
 ```
 
 ## Structure
@@ -68,31 +72,35 @@ Base event fields:
 
 Schedule fields:
 ```
--   once: "datetime": YYYY-MM-DDTHH:MM
--   daily: "time": HH:MM
--   weekly: "weekday": 0-6
--   monthly: "day": 1-31
--   yearly: "date": MM-DD
+-   date: "datetime": YYYY-MM-DDTHH:MM      (schedule: once)
+-   dailytime: "time": HH:MM                (schedule: daily)
+-   day_of_week: "weekday": 0-6             (schedule: weekly)
+-   dd: "day": 1-31                         (schedule: monthly)
+-   mm_dd: "date": MM-DD                    (schedule: yearly)
 ```
 
 ### Classes
 
-File_Manager:
+JsonFileManager:
 ```
--   read_json(file_path)
--   write_json(file_path, data)
+-   get_all_data()
+-   get_data_by_id(key)
+-   add_new_data(value)
+-   update_data(key, value)
+-   delete_data(key)
 ```
 
-Event_Manager:
+EventManager:
 ```
 -   get_events()
+-   get_todays_events()
 -   get_event_by_id(event_id)
 -   add_event(event)
 -   update_event(event_id, event)
 -   delete_event(event_id)
 ```
 
-Notify_Manager:
+NotifyManager:
 ```
 -   send_notification(events)
 -   send_error(error)

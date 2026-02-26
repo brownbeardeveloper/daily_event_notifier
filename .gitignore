@@ -3,5 +3,5 @@ __pycache__/
 *.pyc
 *.pyo
 *.log
-data/*
+data/events.json
 .env

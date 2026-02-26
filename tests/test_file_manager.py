@@ -79,7 +79,7 @@ class TestFileManager:
     events_before = fileManager.get_all_data()
     fileManager.update_data(
       key=id_1,
-      value=BaseEvents(message="Updated", schedule="once", once="2026-02-15T12:00:00")
+      value=BaseEvents(message="Updated", schedule="once", date="2026-02-15T12:00:00")
     )
     events_after = fileManager.get_all_data()
     updated_event = fileManager.get_data_by_id(id_1)
@@ -91,7 +91,7 @@ class TestFileManager:
     assert events_before[idx].dailytime == datetime.time(12, 0) 
     assert updated_event.message == "Updated"
     assert updated_event.schedule.value == "once"
-    assert updated_event.once == datetime.datetime(2026, 2, 15, 12, 0)
+    assert updated_event.date == datetime.datetime(2026, 2, 15, 12, 0)
 
   def test_delete_json(self, tmp_path):
     id_1 = 1
