@@ -1,4 +1,5 @@
 from datetime import datetime
+import logging
 import requests
 from requests.exceptions import RequestException
 from core.schemas import BaseEvents, ScheduleType
@@ -54,7 +55,8 @@ class NotificationManager:
         }
       )
       return response.status_code
-    except RequestException:
+    except RequestException as exc:
+      logging.error("Failed to send Discord webhook request: %s", exc)
       return 0
 
   def send_notification(self, events: list[BaseEvents]) -> int:
